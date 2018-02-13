@@ -2,6 +2,13 @@
 use ct\rtti\RTTIObject;
 use fmx\forms\TApplication;
 
+function write($str) {
+	fwrite($f = fopen("php://stdout", "w+"), $str);
+	fclose($f);	
+}
+function writeLn($str) {
+	write($str."\n");
+}
 function enableWriteToConsole() {
 	runkit_function_copy("print_r", "__print_r__");
 	runkit_function_copy("var_dump", "__var_dump__");

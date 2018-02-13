@@ -1,0 +1,183 @@
+object TStyleContainer
+  object TLayout
+    StyleName = 'Buttonstyle'
+    Align = Center
+    Size.Width = 80.000000000000000000
+    Size.Height = 22.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object TButtonStyleObject
+      StyleName = 'background'
+      Align = Contents
+      SourceLookup = 'Windows 8 Desktopstyle.png'
+      Size.Width = 80.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      HotLink = <
+        item
+          CapInsets.Left = 3.000000000000000000
+          CapInsets.Top = 3.000000000000000000
+          CapInsets.Right = 3.000000000000000000
+          CapInsets.Bottom = 3.000000000000000000
+          SourceRect.Left = 4.000000000000000000
+          SourceRect.Top = 212.000000000000000000
+          SourceRect.Right = 84.000000000000000000
+          SourceRect.Bottom = 251.000000000000000000
+        end
+        item
+          CapInsets.Left = 4.000000000000000000
+          CapInsets.Top = 4.000000000000000000
+          CapInsets.Right = 4.000000000000000000
+          CapInsets.Bottom = 4.000000000000000000
+          Scale = 1.500000000000000000
+          SourceRect.Left = 6.000000000000000000
+          SourceRect.Top = 318.000000000000000000
+          SourceRect.Right = 126.000000000000000000
+          SourceRect.Bottom = 376.000000000000000000
+        end
+        item
+          CapInsets.Left = 6.000000000000000000
+          CapInsets.Top = 6.000000000000000000
+          CapInsets.Right = 6.000000000000000000
+          CapInsets.Bottom = 6.000000000000000000
+          Scale = 2.000000000000000000
+          SourceRect.Left = 8.000000000000000000
+          SourceRect.Top = 424.000000000000000000
+          SourceRect.Right = 168.000000000000000000
+          SourceRect.Bottom = 502.000000000000000000
+        end>
+      FocusedLink = <
+        item
+          CapInsets.Left = 3.000000000000000000
+          CapInsets.Top = 3.000000000000000000
+          CapInsets.Right = 3.000000000000000000
+          CapInsets.Bottom = 3.000000000000000000
+          SourceRect.Left = 4.000000000000000000
+          SourceRect.Top = 212.000000000000000000
+          SourceRect.Right = 84.000000000000000000
+          SourceRect.Bottom = 251.000000000000000000
+        end
+        item
+          CapInsets.Left = 4.000000000000000000
+          CapInsets.Top = 4.000000000000000000
+          CapInsets.Right = 4.000000000000000000
+          CapInsets.Bottom = 4.000000000000000000
+          Scale = 1.500000000000000000
+          SourceRect.Left = 6.000000000000000000
+          SourceRect.Top = 318.000000000000000000
+          SourceRect.Right = 126.000000000000000000
+          SourceRect.Bottom = 376.000000000000000000
+        end
+        item
+          CapInsets.Left = 6.000000000000000000
+          CapInsets.Top = 6.000000000000000000
+          CapInsets.Right = 6.000000000000000000
+          CapInsets.Bottom = 6.000000000000000000
+          Scale = 2.000000000000000000
+          SourceRect.Left = 8.000000000000000000
+          SourceRect.Top = 424.000000000000000000
+          SourceRect.Right = 168.000000000000000000
+          SourceRect.Bottom = 502.000000000000000000
+        end>
+      NormalLink = <
+        item
+          CapInsets.Left = 3.000000000000000000
+          CapInsets.Top = 3.000000000000000000
+          CapInsets.Right = 3.000000000000000000
+          CapInsets.Bottom = 3.000000000000000000
+          SourceRect.Left = 4.000000000000000000
+          SourceRect.Top = 168.000000000000000000
+          SourceRect.Right = 84.000000000000000000
+          SourceRect.Bottom = 207.000000000000000000
+        end
+        item
+          CapInsets.Left = 4.000000000000000000
+          CapInsets.Top = 4.000000000000000000
+          CapInsets.Right = 4.000000000000000000
+          CapInsets.Bottom = 4.000000000000000000
+          Scale = 1.500000000000000000
+          SourceRect.Left = 6.000000000000000000
+          SourceRect.Top = 252.000000000000000000
+          SourceRect.Right = 126.000000000000000000
+          SourceRect.Bottom = 310.000000000000000000
+        end
+        item
+          CapInsets.Left = 6.000000000000000000
+          CapInsets.Top = 6.000000000000000000
+          CapInsets.Right = 6.000000000000000000
+          CapInsets.Bottom = 6.000000000000000000
+          Scale = 2.000000000000000000
+          SourceRect.Left = 8.000000000000000000
+          SourceRect.Top = 336.000000000000000000
+          SourceRect.Right = 168.000000000000000000
+          SourceRect.Bottom = 414.000000000000000000
+        end>
+      PressedLink = <
+        item
+          CapInsets.Left = 3.000000000000000000
+          CapInsets.Top = 3.000000000000000000
+          CapInsets.Right = 3.000000000000000000
+          CapInsets.Bottom = 3.000000000000000000
+          SourceRect.Left = 4.000000000000000000
+          SourceRect.Top = 255.000000000000000000
+          SourceRect.Right = 84.000000000000000000
+          SourceRect.Bottom = 294.000000000000000000
+        end
+        item
+          CapInsets.Left = 4.000000000000000000
+          CapInsets.Top = 4.000000000000000000
+          CapInsets.Right = 4.000000000000000000
+          CapInsets.Bottom = 4.000000000000000000
+          Scale = 1.500000000000000000
+          SourceRect.Left = 6.000000000000000000
+          SourceRect.Top = 382.000000000000000000
+          SourceRect.Right = 126.000000000000000000
+          SourceRect.Bottom = 441.000000000000000000
+        end
+        item
+          CapInsets.Left = 6.000000000000000000
+          CapInsets.Top = 6.000000000000000000
+          CapInsets.Right = 6.000000000000000000
+          CapInsets.Bottom = 6.000000000000000000
+          Scale = 2.000000000000000000
+          SourceRect.Left = 8.000000000000000000
+          SourceRect.Top = 510.000000000000000000
+          SourceRect.Right = 168.000000000000000000
+          SourceRect.Bottom = 588.000000000000000000
+        end>
+      TouchAnimation.Link = <>
+    end
+    object TGlyph
+      StyleName = 'glyphstyle'
+      Margins.Left = 6.000000000000000000
+      Margins.Top = 2.000000000000000000
+      Margins.Right = 1.000000000000000000
+      Margins.Bottom = 2.000000000000000000
+      Align = Left
+      Position.X = 6.000000000000000000
+      Position.Y = 2.000000000000000000
+      Size.Width = 15.000000000000000000
+      Size.Height = 18.000000000000000000
+      Size.PlatformDefault = False
+      ImageIndex = 1
+    end
+    object TButtonStyleTextObject
+      StyleName = 'text'
+      Align = Client
+      Locked = True
+      Margins.Left = 1.000000000000000000
+      Margins.Top = 2.000000000000000000
+      Margins.Right = 1.000000000000000000
+      Margins.Bottom = 2.000000000000000000
+      Size.Width = 56.000000000000000000
+      Size.Height = 18.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Text'
+      ShadowVisible = False
+      HotColor = claBlack
+      FocusedColor = claBlack
+      NormalColor = claBlack
+      PressedColor = claBlack
+    end
+  end
+end

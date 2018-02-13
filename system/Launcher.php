@@ -10,6 +10,8 @@ require_once("system\Screens\Splash.php");
 enableWriteToConsole();
 app()->initialize();
 
+date_default_timezone_set('Europe/Moscow');
+
 /*$splash = new Splash();
 $splash->showGo();
 

@@ -51,6 +51,30 @@ if(!strncasecmp(php_uname('s'), 'windows', 7)) {
 	define ('IS_UNIX', 1);
 }
 
+define("WINDOWS_7", 0);
+define("WINDOWS_8", 1);
+define("WINDOWS_8_1", 2);
+define("WINDOWS_10", 3);
+switch(php_uname("r")) {
+	case "6.1": {
+		define("OS_PLATFORM", WINDOWS_7);
+		break;
+	}
+	case "6.2": {
+		define("OS_PLATFORM", WINDOWS_8);
+		break;
+	}
+	case "6.3": {
+		define("OS_PLATFORM", WINDOWS_8_1);
+		break;
+	}
+	case "10": {
+		define("OS_PLATFORM", WINDOWS_10);
+		break;
+	}
+}
+
 require __DIR__ . '/main/Constants.php';
 require __DIR__ . '/main/Functions.php';
+require __DIR__ . '/main/ResProtocol.php';
 ?>

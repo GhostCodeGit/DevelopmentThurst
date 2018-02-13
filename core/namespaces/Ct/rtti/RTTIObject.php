@@ -26,10 +26,11 @@ class RTTIObject {
 	/*
 	* For VCL
 	*/
-	public function setParent(RTTIObject $parent) {
+	public function setParent($parent) {
+		if(is_int($parent))
+			$parent = new \Ct\RTTI\RTTIObject($parent);
 		$parent->insertControl($this);
 		$parent->insertComponent($this);
-		$form = $this->getParentForm($parent);
 		RTTISetProperty($this->id, "parent", [$parent->id]);
 	}
 	private function getParentForm($object) {

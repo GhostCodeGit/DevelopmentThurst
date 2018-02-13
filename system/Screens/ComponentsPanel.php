@@ -6,6 +6,7 @@ use FMX\TabControl\TTabControl;
 use FMX\TabControl\TTabItem;
 use FMX\TreeView\TTreeView;
 use FMX\TreeView\TTreeViewItem;
+use FMX\Edit\TEdit;
 
 use DT\Lists\TCategoryButtons;
 
@@ -38,15 +39,25 @@ class ComponentsPanel {
 		$novisual->text = "Не визуальные";
 		$novisual->imageIndex = $ide->icons->getAsImage16("eye-minus");
 		
+		$searchVisual = new TEdit;
+		$searchVisual->parent = $visual;
+		$searchVisual->align = 'alTop';
+		$searchVisual->styledSettings = '';
+		$searchVisual->font->size = 14;
+		$searchVisual->on("keyUp", function($sender)use(&$categoryButtons) {
+			$categoryButtons->setSearchKeyword($sender->text);
+		});
+		
 		$categoryButtons = new TCategoryButtons;
 		$categoryButtons->parent = $visual;
 		$categoryButtons->align = 'alClient';
 		$categoryButtons->setImages($ide->icons->icons16);
+		$categoryButtons->setSearchEnabled(true);
 		
 		$categoryButtons->addCategory("Главное", "main");
-		$categoryButtons->addButton("Дополнительно", "main", 5);
-		$categoryButtons->addButton("Дополнительно2", "main", 4);
-		$categoryButtons->addButton("Дополнительно3", "main", 0);
+		$categoryButtons->addButton("Дополнительно", "main", 5, ["additional1", "Дополнительно1"]);
+		$categoryButtons->addButton("Дополнительно2", "main", 4, ["additional2", "Дополнительно2"]);
+		$categoryButtons->addButton("Дополнительно3", "main", 0, ["additional3", "Дополнительно3"]);
 		
 		$categoryButtons->addCategory("Дополнительно", "additional");
 		$categoryButtons->addButton("Главное", "additional", 1);
@@ -62,6 +73,8 @@ class ComponentsPanel {
 		$categoryButtons->addButton("Главное", "system", 9);
 		$categoryButtons->addButton("Главное2", "system", 10);
 		$categoryButtons->addButton("Главное3", "system", 11);
+		
+		$categoryButtons->paint();
 		
 		$this->screen = $screen;
 	}

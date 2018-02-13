@@ -35,7 +35,9 @@ class Main {
 		
 		$styleBook = new TStyleBook;
 		$screen->styleBook = $styleBook;
-		$screen->styleBook->loadFromStream(getResource("CtStyle"));
+		$styleId = (OS_PLATFORM == WINDOWS_8_1 ? WINDOWS_8 : OS_PLATFORM);
+		$styleId = (OS_PLATFORM == WINDOWS_10 ? 2 : $styleId);
+		$screen->styleBook->loadFromStream(getResource("CtStyle".$styleId));
 		
 		$topPanel = $this->getBevelPanel($screen, false, false, true, false);
 		$topPanel->align = 'alTop';
