@@ -7,7 +7,6 @@ use FMX\StdCtrls\TLabel;
 use FMX\Layouts\TLayout;
 use FMX\TabControl\TTabControl;
 use FMX\TabControl\TTabItem;
-use FMX\Controls\TStyleBook;
 
 use System\Classes\TResourceStream;
 
@@ -30,14 +29,9 @@ class Main {
 	public function __construct() {
 		$screen = new TForm; 
 		$screen->position = 'poScreenCenter';
+		$screen->caption = DT_FULL_VERSION;
 		$screen->windowState = 'wsMaximized';
 		app()->setMainForm($screen);
-		
-		$styleBook = new TStyleBook;
-		$screen->styleBook = $styleBook;
-		$styleId = (OS_PLATFORM == WINDOWS_8_1 ? WINDOWS_8 : OS_PLATFORM);
-		$styleId = (OS_PLATFORM == WINDOWS_10 ? 2 : $styleId);
-		$screen->styleBook->loadFromStream(getResource("CtStyle".$styleId));
 		
 		$topPanel = $this->getBevelPanel($screen, false, false, true, false);
 		$topPanel->align = 'alTop';
@@ -171,10 +165,25 @@ class Main {
 		$itemSettings->imageIndex = $ide->icons->getAsImage16('settings');
 		$itemProject->addObject($itemSettings);
 		
+		/////////////////////////////////////////////////////////////////
+		
+		$itemIDE = new TMenuItem;
+		$itemIDE->text = 'IDE';
+		
+		$itemSettings = new TMenuItem;
+		$itemSettings->text = 'Настройки';
+		$itemSettings->imageIndex = $ide->icons->getAsImage16('settings');
+		$itemSettings->on("click", function($sender) {
+			$settingsScreen = new Settings;
+			$settingsScreen->showGo();
+		});
+		$itemIDE->addObject($itemSettings);
+		
 		//////////////////////////////////////////////////////////////
 		
 		$menu->addObject($itemFile);
 		$menu->addObject($itemProject);
+		$menu->addObject($itemIDE);
 	}
 	
 }

@@ -12,22 +12,27 @@ app()->initialize();
 
 date_default_timezone_set('Europe/Moscow');
 
-/*$splash = new Splash();
+$splash = new Splash();
 $splash->showGo();
 
 Loader::loadToText($splash->getText());
 $main = new Main;
-setTimeout(500, function()use($splash, $main) {
+setInterval(1000, function($timer)use($splash, $main) {
+	if($splash->canLoad) {
+		$timer->enabled = false;
+	} else {
+		return;
+	}
 	$ide = new Ide;
 	$splash->destroy();
 	$main->showGo();
-});*/
+});
 
-Loader::loadToText(null);
+/*Loader::loadToText(null);
 $ide = new Ide;
 $main = new Main;
 $ide->mainForm = $main;
-$main->showGo();
+$main->showGo();*/
 
 app()->run();
 ?>

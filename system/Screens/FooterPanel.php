@@ -6,6 +6,7 @@ use FMX\StdCtrls\TButton;
 use FMX\StdCtrls\TPanel;
 use FMX\StdCtrls\TLabel;
 use FMX\StdCtrls\TCalloutPanel;
+use FMX\Layouts\TLayout;
 use FMX\Layouts\TVertScrollBox;
 use FMX\Objects\TText;
 
@@ -20,18 +21,45 @@ class FooterPanel {
 	private $messages = [];
 
 	public function updateMessages($panelMessages, $panelMessagesContents) {
-			for($i = 0; $i < $panelMessagesContents->controlCount - 1; $i++) {
-				$panelMessagesContents->controls($i)->destroy();
+		static $rendered = [];
+			for($j = 0; $j <= 5; $j++) {
+				for($i = 0; $i < $panelMessagesContents->content->componentCount; $i++) {
+					$panelMessagesContents->content->components($i)->destroy();
+				}
 			}
+			
 			$y = 30;
 			$lmessages = [];
+			$timeout = 300;
 			foreach($this->messages as $key => $message) {
-				$layoutMessage = new TPanel;
-				$layoutMessage->parent = $panelMessagesContents;
+				$layoutMessage = new TLayout;
+				$layoutMessage->parent = $panelMessagesContents->content;
 				$layoutMessage->position->x = 5;
 				$layoutMessage->position->y = $y;
 				$layoutMessage->width = $panelMessagesContents->width - ($layoutMessage->position->x * 2);
-				$layoutMessage->height = 43;
+				$layoutMessage->height = 48;
+				$layoutMessage->align = 'alTop';
+				if(!in_array(md5($message[1]), $rendered)) {
+					$layoutMessage->opacity = 0;
+					setTimeout($timeout, function()use($layoutMessage) {
+						setInterval(1, function($timer)use($layoutMessage) {
+							if((int)$layoutMessage->opacity == 1) {
+								$timer->enabled = false;
+								return;
+							}
+							$layoutMessage->opacity += 0.02;
+						});
+					});
+					$timeout += 100;
+					$rendered[] = md5($message[1]);
+				}
+				
+				$layoutMessage1 = new TPanel;
+				$layoutMessage1->parent = $layoutMessage;
+				$layoutMessage = $layoutMessage1;
+				$layoutMessage->align = 'alTop';
+				$layoutMessage->height = $layoutMessage->parent->height - 5;
+				
 				$lmessages[] = $layoutMessage;
 				$y += $layoutMessage->height + 2;
 					
@@ -69,13 +97,14 @@ class FooterPanel {
 					
 				$layoutDateLabel = new TText($message[3]);
 				$layoutDateLabel->parent = $layoutMessage;
-				$layoutDateLabel->width = 60;
+				$layoutDateLabel->width = 55;
 				$layoutDateLabel->position->x = $layoutMessage->width - $layoutDateLabel->width;
 				$layoutDateLabel->position->y = $layoutTypeLabel->position->y;
 				$layoutDateLabel->styledSettings = '';
 				$layoutDateLabel->wordWrap = false;
 				$layoutDateLabel->autoSize = true;
 				$layoutDateLabel->font->size = 13;
+				$layoutDateLabel->anchors = 'akRight';
 					
 				$layoutMessageLabel = new TLabel($message[1]);
 				$layoutMessageLabel->parent = $layoutMessage;
@@ -84,14 +113,6 @@ class FooterPanel {
 				$layoutMessageLabel->wordWrap = false;
 				$layoutMessageLabel->width = $layoutMessage->width - ($layoutMessageLabel->position->x * 2);
 				$layoutMessageLabel->height = 70;
-			}
-			$totalHeight = 0;
-			for($i = 0; $i < $panelMessagesContents->controlCount - 1; $i++) {
-				$totalHeight += $panelMessagesContents->controls($i)->height + 2;
-			}
-			if($totalHeight >= $panelMessages->height) {
-				foreach($lmessages as $message) 
-					$message->width -= 15;
 			}
 	}
 	
@@ -119,25 +140,46 @@ class FooterPanel {
 		$imageMore->parent = $screen;
 		$imageMore->width = 16;
 		$imageMore->height = 16;
-		$imageMore->on("click", function($sender)use(&$panelMessages, &$panelMessagesContents) {
+		$imageMore->on("click", function($sender)use(&$panelMessages, &$labelMessages, &$panelMessagesContents) {
 			$this->updateMessages($panelMessages, $panelMessagesContents);
 			$panelMessages->visible = $panelMessages->visible == "True" ? false : true;
+			$labelMessages->bringToFront();
 		});
 		
 		$panelMessages = new TCalloutPanel;
 		$panelMessages->parent = $screen->parent;
 		$panelMessages->width = (int)($screen->width / 2);
-		$panelMessages->height = (int)($screen->parent->height / 3);
+		$panelMessages->height = (int)($screen->parent->height / 2);
 		$panelMessages->visible = false;
 		$panelMessages->calloutPosition = 'cpBottom';
 		$panelMessages->calloutOffset = ($panelMessages->width - $panelMessages->calloutWidth) - 18;
 		$panelMessages->anchors = 'akRight, akBottom';
+			
+			$space = new TLayout;
+			$space->parent = $panelMessages;
+			$space->width = 5;
+			$space->align = 'alLeft';
+			$space = new TLayout;
+			$space->parent = $panelMessages;
+			$space->width = 5;
+			$space->align = 'alRight';
+			$space = new TLayout;
+			$space->parent = $panelMessages;
+			$space->height = 5;
+			$space->align = 'alBottom';
+		
 		$panelMessagesContents = new TVertScrollBox;
 		$panelMessagesContents->parent = $panelMessages;
 		$panelMessagesContents->align = 'alClient';
+		$panelMessagesContents->showScrollbars = false;
 		
+			$space = new TLayout;
+			$space->parent = $panelMessages;
+			$space->height = 30;
+			$space->align = 'alTop';
+			
 		$labelMessages = new TText;
-		$labelMessages->parent = $panelMessagesContents;
+		$labelMessages->parent = $space;
 		$labelMessages->position->x = 5;
 		$labelMessages->position->y = 5;
 		$labelMessages->styledSettings = '';

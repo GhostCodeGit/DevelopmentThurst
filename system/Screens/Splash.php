@@ -12,10 +12,12 @@ class Splash {
 
 	private $screen;
 	private $processText;
+	public $canLoad = false;
 
 	public function __construct() {
 		$screen = new TForm; 
 		$screen->borderStyle = 'bsNone';
+		$screen->transparency = true;
 		$screen->position = 'poScreenCenter';
 		
 		$image = new TImage;
@@ -23,6 +25,7 @@ class Splash {
 		$image->bitmap->loadFromFile("splash.png");
 		$image->width = $image->bitmap->width;
 		$image->height = $image->bitmap->height;
+		$image->opacity = 0;
 		$screen->width = $image->width;
 		$screen->height = $image->height;
 		
@@ -33,6 +36,17 @@ class Splash {
 		$processText->styleSettings = '';
 		$processText->font->size = 14;
 		$processText->width = 300;
+		$processText->opacity = 0;
+		
+		setInterval(1, function($timer)use($image, $processText) {
+			if($image->opacity == 1) {
+				$timer->enabled = false;
+				$this->canLoad = true;
+				return;
+			}
+			$image->opacity += 0.04;
+			$processText->opacity += 0.04;
+		});
 		
 		$this->processText = $processText;
 		$this->screen = $screen;

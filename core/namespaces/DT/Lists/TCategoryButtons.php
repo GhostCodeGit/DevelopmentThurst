@@ -22,13 +22,13 @@ class TCategoryButtons extends TVertScrollBox {
 	
 	public function setImages($images) {
 		$this->images = $images;
-		$this->paint();
-		app()->processMessages();
+		/*$this->paint();
+		app()->processMessages();*/
 	}
 	public function setSearchEnabled($searchEnabled) {
 		$this->searchEnabled = $searchEnabled;
-		$this->paint();
-		app()->processMessages();
+		/*$this->paint();
+		app()->processMessages();*/
 	}
 	public function setSearchKeyword($searchKeyword) {
 		$this->searchKeyword = $searchKeyword;
@@ -37,32 +37,44 @@ class TCategoryButtons extends TVertScrollBox {
 	}
 	public function addCategory($categoryText, $categoryName) {
 		$this->categories[$categoryName] = [$categoryText, []];
-		$this->paint();
-		app()->processMessages();
+		/*$this->paint();
+		app()->processMessages();*/
 	}
 	public function addButton($buttonText, $categoryName, $imageIndex = -1, $searchNames = []) {
 		$searchNames[] = $buttonText;
 		$this->categories[$categoryName][1][] = [$buttonText, $imageIndex, $searchNames];
-		$this->paint();
-		app()->processMessages();
+		/*$this->paint();
+		app()->processMessages();*/
 	}
 	
 	public function paint() {
-		for($i = 0; $i < $this->componentCount; $i++) {
-			$component = $this->components($i);
-			$component->free();
+		for($j = 0; $j <= 5; $j++) {
+			for($i = 0; $i < $this->content->componentCount; $i++) {
+				$this->content->components($i)->free();
+			}
 		}
 		
+		$buttons = [];
 		$totalTop = 0;
 		foreach($this->categories as $category) {
 			if(count($category[1]) == 0)
 				continue;
+				
+			$filtred = 0;
+			foreach($category[1] as $_button) {
+				if($this->searchKeyword !== '') {
+					if(!preg_match("@(".$this->searchKeyword.")@ui", implode("|", $_button[2])))
+						$filtred++;
+				}
+			}
+			if($filtred == count($category[1]))
+				continue;
 			
 			$categoryLayout = new TLayout;
-			$categoryLayout->parent = $this;
+			$categoryLayout->parent = $this->content;
 			$categoryLayout->width = $this->width;
 			$categoryLayout->height = (count($category[1])*28)+27;
-			$categoryLayout->position->y = $totalTop;
+			$categoryLayout->align = 'alTop';
 			$totalTop += $categoryLayout->height;
 			
 			$catNameDelimeter = new TPanel;
@@ -85,7 +97,6 @@ class TCategoryButtons extends TVertScrollBox {
 			$catNameDelimeter->height = 1;
 			$catNameDelimeter->position->y = $categoryName->position->y + $categoryName->height + $categoryName->position->y;
 			
-			$filtred = 0;
 			foreach($category[1] as $_button) {
 				
 				if($this->searchKeyword !== '') {
@@ -96,7 +107,6 @@ class TCategoryButtons extends TVertScrollBox {
 					if(!preg_match("@(".$this->searchKeyword.")@ui", implode("|", $_button[2]))) {
 						$totalTop -= 28;
 						$categoryLayout->height -= 30;
-						$filtred++;
 						continue;
 					}
 				}
@@ -104,11 +114,13 @@ class TCategoryButtons extends TVertScrollBox {
 				$top = isset($button)?($button->position->y+$button->height+2):($catNameDelimeter->position->y+$catNameDelimeter->height+2);
 				$button = new TButton($_button[0]);
 				$button->parent = $categoryLayout;
-				$button->width = $categoryLayout->width - ($this->showScrollBars?21:6);
+				$button->width = $categoryLayout->width - 6;
 				$button->height = 26;
 				$button->position->x = 3;
+				$button->anchors = 'akLeft, akRight';
 				$button->position->y = $top;
 				$button->repaint();
+				$buttons[] = $button;
 				if($this->images !== null && $_button[1] !== -1) {
 					$button->images = $this->images;
 					$button->imageIndex = $_button[1];
@@ -116,7 +128,7 @@ class TCategoryButtons extends TVertScrollBox {
 			}
 			unset($button);
 		}
-			$this->repaint();
+		$this->repaint();
 	}
 	
 }

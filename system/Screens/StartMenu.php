@@ -40,7 +40,6 @@ class StartMenu {
 		$projectNew->font->size = 14;
 		$projectNew->images = $ide->icons->icons16;
 		$projectNew->imageIndex = $ide->icons->getAsImage16("new");
-		$projectNew->styleLookup = 'custom_color';
 		
 		$projectOpen = new TButton("Открыть проект");
 		$projectOpen->parent = $screen;

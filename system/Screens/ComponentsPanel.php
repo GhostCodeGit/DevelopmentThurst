@@ -62,7 +62,6 @@ class ComponentsPanel {
 		$categoryButtons->addCategory("Дополнительно", "additional");
 		$categoryButtons->addButton("Главное", "additional", 1);
 		$categoryButtons->addButton("Главное2", "additional", 2);
-		$categoryButtons->addButton("Главное3", "additional", 3);
 		
 		$categoryButtons->addCategory("Веб", "web");
 		$categoryButtons->addButton("Дополнительно", "web", 6);
@@ -72,7 +71,6 @@ class ComponentsPanel {
 		$categoryButtons->addCategory("Система", "system");
 		$categoryButtons->addButton("Главное", "system", 9);
 		$categoryButtons->addButton("Главное2", "system", 10);
-		$categoryButtons->addButton("Главное3", "system", 11);
 		
 		$categoryButtons->paint();
 		
