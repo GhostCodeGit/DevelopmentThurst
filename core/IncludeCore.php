@@ -55,7 +55,7 @@ define("WINDOWS_7", 0);
 define("WINDOWS_8", 1);
 define("WINDOWS_8_1", 2);
 define("WINDOWS_10", 3);
-switch(php_uname("r")) {
+switch(osVersion()) {
 	case "6.1": {
 		define("OS_PLATFORM", WINDOWS_7);
 		break;
@@ -68,7 +68,7 @@ switch(php_uname("r")) {
 		define("OS_PLATFORM", WINDOWS_8_1);
 		break;
 	}
-	case "10": {
+	case "10.0": {
 		define("OS_PLATFORM", WINDOWS_10);
 		break;
 	}

@@ -109,10 +109,14 @@ class RTTIObject {
 		$result = null;
 		if(method_exists($this, $method)) {
 			$result = call_user_func_array([$this, $method], $args);
+		} elseif(strtolower($method) == "fadein") {
+			call_user_func_array([$this, "fade"], array_merge_recursive(['in'], $args));
+		} elseif(strtolower($method) == "fadeout") {
+			call_user_func_array([$this, "fade"], array_merge_recursive(['out'], $args));
 		} elseif(RTTIMethodExists($this->id, $method)) {
 			$args = $this->prepareValue($args);
 			$value = RTTICallObjectMethod($this->id, $method, $args);
-			$result = (is_int($value) && (strlen($value)==8||strlen($value)==9) && RTTIIsObject((int)$value)) ? new RTTIObject((int)$value) : $value;
+			$result = (is_int($value) && (strlen($value)==8||strlen($value)==9||strlen($value)==10) && RTTIIsObject((int)$value)) ? new RTTIObject((int)$value) : $value;
 		} else {
 			if(substr($method, 0, 3) == 'set') {
 				$setmethod = substr($method, 3, strlen($method)-3);
@@ -135,7 +139,7 @@ class RTTIObject {
 			$value = RTTICallStaticMethod(self::getVclClassName(), $method, $args);
 			$result = (is_int($value) && strlen($value)==8 && RTTIIsObject((int)$value)) ? new RTTIObject((int)$value) : $value;
 		} else {
-			trigger_error("Can't find static function " . $method, E_USER_ERROR);
+			trigger_error("Can't find static function ".$method, E_USER_ERROR);
 		}
 		return $result;
 	}
@@ -149,6 +153,48 @@ class RTTIObject {
 			return $value;
 		}
 		return ($value instanceof RTTIObject) ? $value->id : $value;
+	}
+	
+	public function fade($mode, $step = "fast", $callback = null) {
+		$slow = 0.03;
+		$medium = 0.05;
+		$fast = 0.08;
+		
+		$mode = $mode == "in";
+		
+		$_step = $slow;
+		if(is_string($step)) {
+			switch($step) {
+				case "slow": {
+					$_step = $slow;
+					break;
+				}
+				case "medium": {
+					$_step = $medium;
+					break;
+				}
+				case "fast": {
+					$_step = $fast;
+					break;
+				}
+				default: {
+					$_step = $medium;
+					break;
+				}
+			}
+		}
+		$step = (float)$_step;
+		
+		$this->opacity = $mode ? 0 : 1;
+		setInterval(1, function($timer)use($mode, $step, $callback) {
+			if(($mode && $this->opacity >= 1) || (!$mode && $this->opacity <= 0)) {
+				$timer->enabled = false;
+				if(is_callable($callback))
+					$callback($this);
+				return;
+			}
+			$this->opacity = $mode ? $this->opacity + $step : $this->opacity - $step;
+		});
 	}
 	
 }

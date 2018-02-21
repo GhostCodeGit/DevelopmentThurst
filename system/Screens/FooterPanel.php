@@ -142,7 +142,14 @@ class FooterPanel {
 		$imageMore->height = 16;
 		$imageMore->on("click", function($sender)use(&$panelMessages, &$labelMessages, &$panelMessagesContents) {
 			$this->updateMessages($panelMessages, $panelMessagesContents);
-			$panelMessages->visible = $panelMessages->visible == "True" ? false : true;
+			if($panelMessages->visible == "True") {
+				$panelMessages->fadeOut("fast", function()use($panelMessages) {
+					$panelMessages->visible = false;
+				});
+			} else {
+				$panelMessages->fadeIn("fast");
+				$panelMessages->visible = true;
+			}
 			$labelMessages->bringToFront();
 		});
 		
@@ -155,28 +162,28 @@ class FooterPanel {
 		$panelMessages->calloutOffset = ($panelMessages->width - $panelMessages->calloutWidth) - 18;
 		$panelMessages->anchors = 'akRight, akBottom';
 			
-			$space = new TLayout;
-			$space->parent = $panelMessages;
-			$space->width = 5;
-			$space->align = 'alLeft';
-			$space = new TLayout;
-			$space->parent = $panelMessages;
-			$space->width = 5;
-			$space->align = 'alRight';
-			$space = new TLayout;
-			$space->parent = $panelMessages;
-			$space->height = 5;
-			$space->align = 'alBottom';
+		$space = new TLayout;
+		$space->parent = $panelMessages;
+		$space->width = 5;
+		$space->align = 'alLeft';
+		$space = new TLayout;
+		$space->parent = $panelMessages;
+		$space->width = 5;
+		$space->align = 'alRight';
+		$space = new TLayout;
+		$space->parent = $panelMessages;
+		$space->height = 5;
+		$space->align = 'alBottom';
 		
 		$panelMessagesContents = new TVertScrollBox;
 		$panelMessagesContents->parent = $panelMessages;
 		$panelMessagesContents->align = 'alClient';
 		$panelMessagesContents->showScrollbars = false;
 		
-			$space = new TLayout;
-			$space->parent = $panelMessages;
-			$space->height = 30;
-			$space->align = 'alTop';
+		$space = new TLayout;
+		$space->parent = $panelMessages;
+		$space->height = 30;
+		$space->align = 'alTop';
 			
 		$labelMessages = new TText;
 		$labelMessages->parent = $space;

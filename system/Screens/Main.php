@@ -7,6 +7,7 @@ use FMX\StdCtrls\TLabel;
 use FMX\Layouts\TLayout;
 use FMX\TabControl\TTabControl;
 use FMX\TabControl\TTabItem;
+use FMX\Objects\TRectangle;
 
 use System\Classes\TResourceStream;
 
@@ -77,6 +78,8 @@ class Main {
 		$this->pageControlling = new MainContentMenu($this->contentTabs);
 		$this->propertiesControlling = new PropertiesPanel($this->leftPanel);
 		$this->componentsControlling = new ComponentsPanel($this->rightPanel);
+		
+		$ide->mainForm = $this;
 		
 		$screen->show();
 	}

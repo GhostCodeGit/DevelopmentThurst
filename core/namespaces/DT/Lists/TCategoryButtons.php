@@ -75,6 +75,7 @@ class TCategoryButtons extends TVertScrollBox {
 			$categoryLayout->width = $this->width;
 			$categoryLayout->height = (count($category[1])*28)+27;
 			$categoryLayout->align = 'alTop';
+			$categoryLayout->opacity = 0;
 			$totalTop += $categoryLayout->height;
 			
 			$catNameDelimeter = new TPanel;
@@ -127,6 +128,7 @@ class TCategoryButtons extends TVertScrollBox {
 				}
 			}
 			unset($button);
+			$categoryLayout->fadeIn("fast");
 		}
 		$this->repaint();
 	}

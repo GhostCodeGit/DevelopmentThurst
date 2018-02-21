@@ -28,6 +28,8 @@ setInterval(1000, function($timer)use($splash, $main) {
 	$main->showGo();
 });
 
+var_dump(OSVersion());
+
 /*Loader::loadToText(null);
 $ide = new Ide;
 $main = new Main;

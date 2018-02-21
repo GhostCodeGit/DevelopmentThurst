@@ -44,8 +44,14 @@ class ComponentsPanel {
 		$searchVisual->align = 'alTop';
 		$searchVisual->styledSettings = '';
 		$searchVisual->font->size = 14;
-		$searchVisual->on("keyUp", function($sender)use(&$categoryButtons) {
+		$oldWord = $searchVisual->text;
+		$searchVisual->on("keyUp", function($sender)use(&$categoryButtons, &$oldWord) {
+			if($oldWord == $sender->text)
+				return;
 			$categoryButtons->setSearchKeyword($sender->text);
+		});
+		$searchVisual->on("keyDown", function($sender)use(&$oldWord) {
+			$oldWord = $sender->text;
 		});
 		
 		$categoryButtons = new TCategoryButtons;

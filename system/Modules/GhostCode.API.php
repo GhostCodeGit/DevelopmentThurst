@@ -17,10 +17,12 @@ class GhostCodeAPI {
 			curl_setopt($testAPI, CURLOPT_NOBODY, 1);
 			$status = trim(explode("\n", curl_exec($testAPI))[0]);
 			curl_close($testAPI);
-			if(stripos($status, "404 Not Found") !== false)
+			if(is_int(stripos($status, "200 OK")))
+				$this->enabled = true;
+			else
 				$this->enabled = false;
 		}
-		if($this->enabled)
+		if(!$this->enabled)
 			$ideThis->message("Сервисы Ghost Code не доступны. Возможно сайт ghostcode.ru недоступен.", 0);
 	}
 	

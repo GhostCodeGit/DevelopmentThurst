@@ -38,14 +38,9 @@ class Splash {
 		$processText->width = 300;
 		$processText->opacity = 0;
 		
-		setInterval(1, function($timer)use($image, $processText) {
-			if($image->opacity == 1) {
-				$timer->enabled = false;
-				$this->canLoad = true;
-				return;
-			}
-			$image->opacity += 0.04;
-			$processText->opacity += 0.04;
+		$image->fadeIn("medium");
+		$processText->fadeIn("medium", function() {
+			$this->canLoad = true;
 		});
 		
 		$this->processText = $processText;
